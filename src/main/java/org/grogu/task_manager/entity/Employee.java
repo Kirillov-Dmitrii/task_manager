@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "employee")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -22,17 +22,19 @@ public class Employee {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.REMOVE)
-    private List<Task> tasks = new ArrayList<>();
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
+    private List<Task> authorTasks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "executor", cascade = CascadeType.REMOVE)
+    private List<Task> executorTasks = new ArrayList<>();
 
     public Employee() {
     }
 
-    public Employee(String name, String email, String password, List<Task> tasks) {
+    public Employee(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-        this.tasks = tasks;
     }
 
     public long getId() {
@@ -67,11 +69,19 @@ public class Employee {
         this.password = password;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public List<Task> getAuthorTasks() {
+        return authorTasks;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setAuthorTasks(List<Task> authorTasks) {
+        this.authorTasks = authorTasks;
+    }
+
+    public List<Task> getExecutorTasks() {
+        return executorTasks;
+    }
+
+    public void setExecutorTasks(List<Task> executorTasks) {
+        this.executorTasks = executorTasks;
     }
 }

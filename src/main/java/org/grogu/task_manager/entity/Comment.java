@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Table(name = "comment")
 public class Comment {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
 
@@ -19,7 +19,7 @@ public class Comment {
     private LocalDate date;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "task_id")
     private Task task;
 
     public Comment() {

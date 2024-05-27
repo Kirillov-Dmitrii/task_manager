@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -22,11 +22,11 @@ public class Task {
     private String priority;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "author")
     private Employee author;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "executor")
     private Employee executor;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
