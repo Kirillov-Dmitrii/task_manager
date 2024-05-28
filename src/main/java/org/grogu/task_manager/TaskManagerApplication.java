@@ -1,6 +1,5 @@
 package org.grogu.task_manager;
 import org.grogu.task_manager.repository.EmployeeRepository;
-import org.grogu.task_manager.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

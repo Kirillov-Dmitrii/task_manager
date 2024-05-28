@@ -22,10 +22,10 @@ public class Employee {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Task> authorTasks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "executor", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "executor", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Task> executorTasks = new ArrayList<>();
 
     public Employee() {

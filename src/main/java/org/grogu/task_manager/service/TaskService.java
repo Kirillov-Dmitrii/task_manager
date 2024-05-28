@@ -1,7 +1,9 @@
 package org.grogu.task_manager.service;
 
-import org.springframework.stereotype.Service;
+import org.grogu.task_manager.entity.Task;
 
-@Service
-public class TaskService {
+public interface TaskService {
+    Task addTask(Task task);
+
+    Task updateTask(Task task);
 }
