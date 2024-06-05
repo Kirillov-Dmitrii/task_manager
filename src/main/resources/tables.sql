@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS Comment (
 
 CREATE TABLE IF NOT EXISTS Users (
     id BIGSERIAL NOT NULL ,
-    name VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     role VARCHAR(50) NOT NULL,
@@ -32,7 +32,7 @@ ALTER TABLE Task ADD COLUMN executor BIGINT;
 ALTER TABLE Task ADD FOREIGN KEY (author) REFERENCES Users (id);
 ALTER TABLE Task ADD FOREIGN KEY (executor) REFERENCES Users (id);
 
-INSERT INTO Users(name, email, password, role)
+INSERT INTO Users(username, email, password, role)
 VALUES ('Dima', 'dima@mail.ru', '$2a$12$mNIVEvxMayayx8h6qT5O7ugAzs/1p00iTkgnfdMJPgoRzD48aqAne', 'ADMIN'), ('Liza', 'liza@mail.ru', '$2a$12$p1aAORLo31Qh853XX.N4EeRKM2n6PCkQTSdll8Ts.plY4QNEILNru', 'USER'),
        ('Mira', 'mira@mail.ru','$2a$12$p1aAORLo31Qh853XX.N4EeRKM2n6PCkQTSdll8Ts.plY4QNEILNru', 'USER');
 

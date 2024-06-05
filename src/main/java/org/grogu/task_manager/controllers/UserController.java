@@ -17,12 +17,6 @@ public class UserController {
         this.userService = employeeService;
     }
 
-    @PostMapping()
-    public User add(@RequestBody User user) {
-        return userService.createNewUser(user);
-    }
-
-
     @GetMapping()
     public List<User> getEmployees() {
         return userService.getAll();

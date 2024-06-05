@@ -1,5 +1,6 @@
 package org.grogu.task_manager.service;
 
+import org.grogu.task_manager.dto.RegistrationDto;
 import org.grogu.task_manager.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -11,6 +12,5 @@ public interface UserService extends UserDetailsService {
     List<User> getAll();
     Optional<User> get(Long id);
 
-    User createNewUser(User employee);
-
+    User createNewUser(RegistrationDto registrationDto);
 }
