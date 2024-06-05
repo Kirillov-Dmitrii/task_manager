@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.grogu.task_manager.dto.JwtRequest;
 import org.grogu.task_manager.dto.JwtResponse;
+import org.grogu.task_manager.dto.RegistrationDto;
+import org.grogu.task_manager.dto.UserDto;
+import org.grogu.task_manager.entity.User;
 import org.grogu.task_manager.exeption.AppError;
 import org.grogu.task_manager.service.UserService;
 import org.grogu.task_manager.utils.JwtTokenUtils;
@@ -42,6 +45,27 @@ public class AuthController {
         String token = jwtTokenUtils.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
+    }
+
+    @PostMapping("/registration")
+    public ResponseEntity<?> registration(@RequestBody RegistrationDto registrationDto) {
+        log.info("Controller registration: " + registrationDto.toString());
+        if (!registrationDto.getPassword().equals(registrationDto.getConfirmPassword())) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пароли не совпадают"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        if (userService.findUserByEmail(registrationDto.getEmail()).isPresent()) {
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пользователь с таким email уже " +
+                    "существует"), HttpStatus.BAD_REQUEST);
+        }
+        User user = userService.createNewUser(registrationDto);
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setEmail(user.getEmail());
+
+        return ResponseEntity.ok(userDto);
     }
 
 }
