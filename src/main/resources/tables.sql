@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS Comment (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS Employee (
+CREATE TABLE IF NOT EXISTS Users (
     id BIGSERIAL NOT NULL ,
     name VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
@@ -29,12 +29,12 @@ ALTER TABLE Comment ADD FOREIGN KEY (task_id)REFERENCES Task(id);
 
 ALTER TABLE Task ADD COLUMN author BIGINT;
 ALTER TABLE Task ADD COLUMN executor BIGINT;
-ALTER TABLE Task ADD FOREIGN KEY (author) REFERENCES Employee(id);
-ALTER TABLE Task ADD FOREIGN KEY (executor) REFERENCES Employee(id);
+ALTER TABLE Task ADD FOREIGN KEY (author) REFERENCES Users (id);
+ALTER TABLE Task ADD FOREIGN KEY (executor) REFERENCES Users (id);
 
-INSERT INTO Employee(name, email, password, role)
-VALUES ('Dima', 'dima@mail.ru', ' $2a$12$mNIVEvxMayayx8h6qT5O7ugAzs/1p00iTkgnfdMJPgoRzD48aqAne ', 'ADMIN'), ('Liza', 'liza@mail.ru', ' $2a$12$mNIVEvxMayayx8h6qT5O7ugAzs/1p00iTkgnfdMJPgoRzD48aqAne ', 'USER'),
-       ('Mira', 'mira@mail.ru',' $2a$12$mNIVEvxMayayx8h6qT5O7ugAzs/1p00iTkgnfdMJPgoRzD48aqAne ', 'USER');
+INSERT INTO Users(name, email, password, role)
+VALUES ('Dima', 'dima@mail.ru', '$2a$12$mNIVEvxMayayx8h6qT5O7ugAzs/1p00iTkgnfdMJPgoRzD48aqAne', 'ADMIN'), ('Liza', 'liza@mail.ru', '$2a$12$p1aAORLo31Qh853XX.N4EeRKM2n6PCkQTSdll8Ts.plY4QNEILNru', 'USER'),
+       ('Mira', 'mira@mail.ru','$2a$12$p1aAORLo31Qh853XX.N4EeRKM2n6PCkQTSdll8Ts.plY4QNEILNru', 'USER');
 
 INSERT INTO Task (head, description, status, priority, author, executor)
 VALUES ('Магазин', 'Сходить в магазин', 'в ожидании', 'средний', 2, 1),
