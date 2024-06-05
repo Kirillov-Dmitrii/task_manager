@@ -16,50 +16,52 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
-    private final UserRepository employeeRepository;
+    private final UserRepository userRepository;
 
 
     public void remove(Long employeeId) {
-        employeeRepository.deleteById(employeeId);
+        userRepository.deleteById(employeeId);
     }
 
     @Override
-    public Optional<User> findEmployeeByEmail(String email) {
-        return employeeRepository.findByEmail(email);
+    public Optional<User> findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
     @Override
     public List<User> getAll() {
-        return employeeRepository.findAll();
+        return userRepository.findAll();
     }
 
     @Override
     public Optional<User> get(Long id) {
-        return employeeRepository.findById(id);
+        return userRepository.findById(id);
     }
 
     @Override
-    public User createNewUser(User employee) {
-        employee.setRole(Role.USER);
-        return employeeRepository.save(employee);
+    public User createNewUser(User user) {
+        user.setRole(Role.USER);
+        return userRepository.save(user);
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = findEmployeeByEmail(email).orElseThrow(() -> new UsernameNotFoundException(
+        User user = findUserByEmail(email).orElseThrow(() -> new UsernameNotFoundException(
                 String.format("Пользователь с '$s' не найден", email)
         ));
         log.info(user.getEmail() + " : " + user.getPassword());
+
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                Arrays.stream(EnumType.values()).map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList())
+                Stream.of(user.getRole()).map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList())
         );
     }
 
