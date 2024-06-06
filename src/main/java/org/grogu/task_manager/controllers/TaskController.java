@@ -1,26 +1,25 @@
 package org.grogu.task_manager.controllers;
 
+import lombok.RequiredArgsConstructor;
+import org.grogu.task_manager.dto.TaskRequest;
 import org.grogu.task_manager.entity.Task;
 import org.grogu.task_manager.service.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/tasks")
+@RequiredArgsConstructor
+@RequestMapping("/tasks")
 public class TaskController {
     private final TaskService taskService;
 
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
-
     @PostMapping
-    public Task addTask(@RequestBody Task task) {
-        return taskService.addTask(task);
+    public ResponseEntity<?> createTask(@RequestBody TaskRequest taskRequest) {
+        return taskService.createTask(taskRequest);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateTask(@RequestBody Task task) {
+    public ResponseEntity<?> updateTask(@RequestBody Task task) {
         if (task == null) {
             return ResponseEntity.notFound().build();
         }
