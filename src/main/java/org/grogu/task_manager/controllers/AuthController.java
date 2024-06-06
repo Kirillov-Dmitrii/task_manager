@@ -49,6 +49,8 @@ public class AuthController {
 
     @PostMapping("/registration")
     public ResponseEntity<?> registration(@RequestBody RegistrationDto registrationDto) {
+
+
         log.info("Controller registration: " + registrationDto.toString());
         if (!registrationDto.getPassword().equals(registrationDto.getConfirmPassword())) {
             return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пароли не совпадают"),

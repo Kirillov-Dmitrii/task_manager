@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS Task (
     id BIGSERIAL NOT NULL,
     head VARCHAR(50) NOT NULL,
     description TEXT NOT NULL,
-    status VARCHAR(10) NOT NULL,
-    priority VARCHAR(10) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    priority VARCHAR(50) NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -37,8 +37,8 @@ VALUES ('Dima', 'dima@mail.ru', '$2a$12$mNIVEvxMayayx8h6qT5O7ugAzs/1p00iTkgnfdMJ
        ('Mira', 'mira@mail.ru','$2a$12$p1aAORLo31Qh853XX.N4EeRKM2n6PCkQTSdll8Ts.plY4QNEILNru', 'USER');
 
 INSERT INTO Task (head, description, status, priority, author, executor)
-VALUES ('Магазин', 'Сходить в магазин', 'в ожидании', 'средний', 2, 1),
-       ('Уборка', 'Убрать на кухне', 'в процессе', 'низкий', 1, 3);
+VALUES ('Магазин', 'Сходить в магазин', 'IN_PROGRESS', 'MIDDLE', 2, 1),
+       ('Уборка', 'Убрать на кухне', 'IN_PROGRESS', 'LOW', 1, 3);
 
 INSERT INTO  Comment(text, date, task_id)
 VALUES ('почему я?', CURRENT_DATE, 1),

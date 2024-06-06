@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -26,7 +26,5 @@ public class UserController {
     public Optional<User> getEmployee(@PathVariable Long id) {
         return userService.get(id);
     }
-
-
 
 }
