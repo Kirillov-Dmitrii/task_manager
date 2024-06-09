@@ -1,7 +1,10 @@
 package org.grogu.task_manager.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -29,12 +32,15 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "author")
+    @JsonBackReference
     private User author;
 
     @ManyToOne
     @JoinColumn(name = "executor")
+    @JsonBackReference
     private User executor;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Comment> comments = new ArrayList<>();
 }

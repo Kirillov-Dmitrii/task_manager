@@ -1,5 +1,6 @@
 package org.grogu.task_manager.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,9 +37,11 @@ public class User implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Task> authorTasks = new ArrayList<>();
 
     @OneToMany(mappedBy = "executor", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Task> executorTasks = new ArrayList<>();
 
 
