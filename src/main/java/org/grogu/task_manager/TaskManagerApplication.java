@@ -1,4 +1,5 @@
 package org.grogu.task_manager;
+
 import org.grogu.task_manager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -27,7 +28,7 @@ public class TaskManagerApplication {
 //                .logout(Customizer.withDefaults())
 //                .build();
 //    }
-//
+
 //    @Bean
 //    public UserDetailsService userDetailsService() {
 //        UserDetails userDetails = User.builder()

@@ -1,11 +1,15 @@
 package org.grogu.task_manager.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.grogu.task_manager.dto.RegistrationDto;
-import org.grogu.task_manager.entity.User;
 import org.grogu.task_manager.entity.Role;
+import org.grogu.task_manager.entity.Task;
+import org.grogu.task_manager.entity.User;
+import org.grogu.task_manager.repository.TaskRepository;
 import org.grogu.task_manager.repository.UserRepository;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,13 +17,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-
 @Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -63,6 +68,27 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.USER);
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public ResponseEntity<?> getCreatedTasks(Long id) {
+        User user =
+                userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(String.format("Такого " +
+                        "пользователя не существет : '$s'", id)));
+        List<Task> list = user.getAuthorTasks();
+        if (list.isEmpty()) {
+            list = new ArrayList<>();
+        }
+        return ResponseEntity.ok(list);
+    }
+
+    @Override
+    public ResponseEntity<?> getExecutingTasks(Long id) {
+        User user =
+                userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException(String.format("Такого " +
+                        "пользователя не существет : '$s'", id)));
+        List<Task> list = user.getExecutorTasks();
+        return ResponseEntity.ok(list);
     }
 
     @Override
