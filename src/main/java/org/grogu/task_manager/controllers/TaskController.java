@@ -2,8 +2,10 @@ package org.grogu.task_manager.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.grogu.task_manager.dto.CommentRequestDto;
 import org.grogu.task_manager.dto.StatusRequestDto;
 import org.grogu.task_manager.dto.TaskRequest;
+import org.grogu.task_manager.service.CommentService;
 import org.grogu.task_manager.service.TaskService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class TaskController {
     private final TaskService taskService;
+    private final CommentService commentService;
 
     @GetMapping
     public ResponseEntity<?> getAllTasks() {
@@ -45,6 +48,11 @@ public class TaskController {
         return taskService.removeTask(id);
     }
 
+    @PostMapping("/{id}/comment")
+    public ResponseEntity<?> createNewComment(@PathVariable Long id, @RequestBody CommentRequestDto commentReq) {
+        log.info("creating new comment: " + commentReq);
+        return commentService.createNewComment(id, commentReq);
+    }
 
 
 
