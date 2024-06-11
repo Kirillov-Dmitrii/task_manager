@@ -2,6 +2,7 @@ package org.grogu.task_manager.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 
@@ -17,7 +18,7 @@ public class Comment {
     private String text;
 
     @Column(name = "date", nullable = false)
-    private LocalDate date;
+    private LocalDate date = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "task_id")
@@ -25,12 +26,6 @@ public class Comment {
     private Task task;
 
     public Comment() {
-    }
-
-    public Comment(String text, Task task) {
-        this.text = text;
-        this.date = LocalDate.now();
-        this.task = task;
     }
 
     public long getId() {
