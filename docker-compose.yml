@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    build: ./
+    container_name: "task_manager_app"
+    depends_on:
+      - localhost
+    ports:
+      - "8080:8080"
+
+  localhost:
+    image: 'postgres:10'
+    container_name: 'task_manager_db'
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "--quiet" ]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    environment:
+      - 'POSTGRES_USER=user'
+      - 'POSTGRES_HOST_AUTH_METHOD=trust'
+      - 'POSTGRES_DB=task_manager'
+    ports:
+      - "5432:5432"
+
+
