@@ -1,9 +1,11 @@
 package org.grogu.task_manager.controllers;
 
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
 
@@ -27,6 +29,11 @@ public class TestController {
     @GetMapping("/info")
     public ResponseEntity<String> getInfo(Principal principal) {
         return ResponseEntity.ok(principal.getName());
+    }
+
+    @GetMapping(value = "/hello")
+    public String getHello() {
+        return "index.html";
     }
 
 }

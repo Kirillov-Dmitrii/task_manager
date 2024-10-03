@@ -57,6 +57,7 @@ public class AuthService {
             return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), "Пользователь с таким email уже " +
                     "существует"), HttpStatus.BAD_REQUEST);
         }
+
         User user = userService.createNewUser(registrationDto);
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());

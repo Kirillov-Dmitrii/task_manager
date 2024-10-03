@@ -38,6 +38,9 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorized -> authorized
+                        .requestMatchers("/users").authenticated()
+                        .requestMatchers("/tasks").authenticated()
+                        .requestMatchers("/comments").authenticated()
                         .requestMatchers("/secured").authenticated()
                         .requestMatchers("/info").authenticated()
                         .requestMatchers("/admin").hasAuthority(Role.ADMIN.name())
